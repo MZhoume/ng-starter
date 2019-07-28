@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
   SignUpRequestModel,
@@ -14,7 +14,8 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class UserService {
-  public user?: User;
+  private userSubject = new BehaviorSubject<User | undefined>(undefined);
+  public user$: Observable<User | undefined> = this.userSubject;
 
   constructor(private httpService: HttpService) {}
 
@@ -27,7 +28,7 @@ export class UserService {
   public logIn(model: LogInRequestModel): Observable<void> {
     return this.httpService.post<LogInResponseModel>('user/login', model).pipe(
       map(res => {
-        this.user = res;
+        this.userSubject.next(res);
       })
     );
   }

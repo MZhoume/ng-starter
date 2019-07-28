@@ -18,11 +18,11 @@ export class LogInComponent implements OnInit {
   });
   public user?: User;
 
-  constructor(private userService: UserService) {}
-
-  public ngOnInit() {
-    this.user = this.userService.user;
+  constructor(private userService: UserService) {
+    userService.user$.subscribe(u => (this.user = u));
   }
+
+  public ngOnInit() {}
 
   public logIn(): void {
     this.userService
@@ -30,8 +30,6 @@ export class LogInComponent implements OnInit {
         email: this.logInForm.value.email,
         password: this.logInForm.value.password
       })
-      .subscribe(_ => {
-        this.user = this.userService.user;
-      });
+      .subscribe();
   }
 }
