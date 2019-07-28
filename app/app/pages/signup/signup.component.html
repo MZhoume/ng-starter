@@ -1,0 +1,52 @@
+<h2 *ngIf="userId; else notSignedIn">Hello {{ userId! }}</h2>
+<ng-template #notSignedIn>
+  <form
+    [formGroup]="signUpForm"
+    novalidate
+    autocomplete="off"
+    (ngSubmit)="signUp()"
+  >
+    <mat-form-field style="width: 100%">
+      <input
+        matInput
+        type="email"
+        placeholder="Email"
+        formControlName="email"
+      />
+    </mat-form-field>
+    <mat-form-field style="width: 100%">
+      <input
+        matInput
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+      />
+    </mat-form-field>
+    <mat-form-field style="width: 100%">
+      <input
+        matInput
+        type="text"
+        placeholder="First Name"
+        formControlName="firstName"
+      />
+    </mat-form-field>
+    <mat-form-field style="width: 100%">
+      <input
+        matInput
+        type="text"
+        placeholder="Last Name"
+        formControlName="lastName"
+      />
+    </mat-form-field>
+
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="signUpForm.invalid"
+      style="width: 100%"
+    >
+      Sign Up
+    </button>
+  </form>
+</ng-template>

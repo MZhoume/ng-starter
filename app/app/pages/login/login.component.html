@@ -1,0 +1,36 @@
+<h2 *ngIf="user; else notLoggedIn">Hello {{ user!.firstName }}</h2>
+<ng-template #notLoggedIn>
+  <form
+    [formGroup]="logInForm"
+    novalidate
+    autocomplete="off"
+    (ngSubmit)="logIn()"
+  >
+    <mat-form-field style="width: 100%">
+      <input
+        matInput
+        type="email"
+        placeholder="Email"
+        formControlName="email"
+      />
+    </mat-form-field>
+    <mat-form-field style="width: 100%">
+      <input
+        matInput
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+      />
+    </mat-form-field>
+
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="logInForm.invalid"
+      style="width: 100%"
+    >
+      Log In
+    </button>
+  </form>
+</ng-template>

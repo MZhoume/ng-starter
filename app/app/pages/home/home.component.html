@@ -1,0 +1,6 @@
+<div>
+  <h2 *ngIf="!user; else loggedIn">Welcome</h2>
+  <ng-template #loggedIn>
+    <h2>Hello {{ user!.firstName }}</h2>
+  </ng-template>
+</div>
